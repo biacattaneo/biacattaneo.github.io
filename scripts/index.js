@@ -12,14 +12,15 @@ var newNoticia = new noticia("saude", "cientistas descobriram que a laranja ajud
 
 console.log(newNoticia.categoria, newNoticia.titulo, newNoticia.autor, newNoticia.image, newNoticia.text);
 
+var image = document.createElement("img");
+image.src = newNoticia.image;
+tagNoticias.appendChild(image);
+
 var titulo = document.createElement("h2");
 titulo.innerHTML = newNoticia.titulo;
 titulo.id = "titulo";
 tagNoticias.appendChild(titulo);
 
-var image = document.createElement("img");
-image.src = newNoticia.image;
-tagNoticias.appendChild(image);
 
 
 
