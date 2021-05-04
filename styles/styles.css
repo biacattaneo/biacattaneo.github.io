@@ -1,3 +1,44 @@
-#titulo{
+*{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1{
+    text-align: center;
+}
+
+nav ul li{
+    background-color: lavenderblush;
+    display: inline-block;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+nav ul li:hover{
+    background-color: lemonchiffon;
+}
+
+#noticias{
+    display: flex;
+    height: auto;
+    width: auto;
+    padding: 10px;
+    margin: 1px;
+    text-align: justify;
+}
+
+h2{
     color: red;
+    text-align:justify;
+}
+
+img{
+    width: 200px;
+    align-items: flex-start;
+}
+
+footer{
+    font-size: 1.0rem;
+    width: 300px;
+    padding: 10px;
 }
