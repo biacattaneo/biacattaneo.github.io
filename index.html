@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt">
-
 <head>
   <title>Notícias BCVM</title>
   <meta charset="UTF-8">
@@ -10,9 +9,10 @@
 
 </head>
 
-<body>
-  <div class="container-fluid">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+<body>  
+
+  <div class="container-fluid sticky-top" style="padding: 0;">
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #686de0;">
       <a class="navbar-brand" href="#">Navbar</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -42,40 +42,14 @@
       </div>
     </nav>
   </div>
-  <div class="container-fluid">
+  <div class="container-fluid pt-4" id="conteudo">
     <div class="row">
-      <div class="col-lg-2">
-        Lorem ipsum dolor,
-        sit amet consectetur a
-        dipisicing elit. Facilis hic la
-        boriosam pariatur itaque blanditiis iste, ma
-        gnam quas sed aut dolor praesentium excepturi rep
-        rehenderit est provident iure su
-        nt eaque eligendi eum!
-
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Tenetur ut iusto quidem illo voluptate odit odio vitae
-        minima illum corrupti facilis, a possimus tempore? P
-        ossimus in cupiditate eligendi vitae eius?
+      <div class="col-lg-2 text-center">
+          <img class="img-fluid" src="./src/ads.png">
       </div>
-      <div class="col-lg-10">
-        <div class="card bg-light m-3">
-          <!--Notícia-->
-          <div class="mt-3 ml-3 row">
-            <h4>Título da notícia</h4>
-          </div>
-          <div class="row">
-            <div class="col-lg-3">
-              <img name="imagem" class="img-fluid ml-2 mt-2 mb-2" src="https://source.unsplash.com/386x269" style="width: 386px; height: 269px">
-            </div>
-            <div class="col-lg-9 mt-2" style="font-size: 30px;">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolore dignissimos assumenda excepturi optio laboriosam a, temporibus cum harum dolorum molestiae doloremque consectetur. Distinctio, culpa! Quo enim voluptas autem nostrum nobis.
-            </div>
-          </div>
-        </div>
+      <div class="col-lg-10" id="noticias"> <!--Div vazia, pois as notícias serão inseridas dinamicamente pelo javascript-->
       </div>
     </div>
-  </div>
   </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"> </script>
