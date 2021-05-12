@@ -1,3 +1,11 @@
+*{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+    background-color: #686de0;
+}
+
 #conteudo{
-    background-color: rgb(79, 86, 219);
+    background-color: #686de0;
 }
