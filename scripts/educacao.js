@@ -1,5 +1,3 @@
-
-
 function noticia (categoria, titulo, autor, image, text){
     this.categoria = categoria
     this.titulo = titulo
@@ -51,15 +49,17 @@ function adicionar_noticia(noticia, onde){
 
 
 
-var noticiaSaude = new noticia("saude", "Estudiosos descobriram que a laranja ajuda na queda de cabelo", "jose bezerra", "https://puraqualidadedevida.files.wordpress.com/2014/04/laranja-beneficios-fruta.jpg", "Laranja contem vitamina c que auxilia no fortalecimento do cabelo, fazendo com que diminua as quedas. :)");
-var noticiaEducacao = new noticia("Educação", "Jovem é impedida!", "jose bezerra", "https://media.gazetadopovo.com.br/2021/05/05152446/Elisa-Flemer-380x214.jpeg", "Jovem impedida de se matricular na USP vai para o Vale do Silício");
+var newNoticia = new noticia("Educação", "Jovem impedida tem reviravolta!", "jose bezerra", "https://media.gazetadopovo.com.br/2021/05/05152446/Elisa-Flemer-380x214.jpeg", "Jovem impedida de se matricular na USP vai para o Vale do Silício");
 
 // PARA ADICIONAR NOTICIA NOVA -> var newNoticia2 = new noticia("saude", "Estudiosos descobriram que a laranja ajuda na queda de cabelo", "jose bezerra", "https://revolucao.etc.br/wp-content/uploads/2019/12/Sa%C3%BAde.png", "Laranja contem vitamina c que auxilia no fortalecimento do cabelo, fazendo com que diminua as quedas. :)");
 // adicionar_noticia(newNoticia2,"noticias");
 
-adicionar_noticia(noticiaSaude,"noticias");
-adicionar_noticia(noticiaEducacao,"noticias");
-
+adicionar_noticia(newNoticia,"noticias");
+adicionar_noticia(newNoticia,"noticias");
+adicionar_noticia(newNoticia,"noticias");
+adicionar_noticia(newNoticia,"noticias");
+adicionar_noticia(newNoticia,"noticias");
+adicionar_noticia(newNoticia,"noticias");
 
 //console.log(newNoticia.categoria, newNoticia.titulo, newNoticia.autor, newNoticia.image, newNoticia.text);
 
