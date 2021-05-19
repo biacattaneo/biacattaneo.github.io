@@ -2,52 +2,33 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-h2{
-    text-align: center;
+body{
+    background-color: #686de0;
+    margin: 0;
 }
 
-#contato{
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+footer{
+    background-color: #686de0;
 }
+
 
 #formContato{
-    display: inline-block;
-    background-color: rosybrown;
-    padding: 10px;
-    border: solid 3px;
-    font-weight: bold;
-    margin: auto;
-    width: 500px;
+    background-color: #fff;
+    width: 100%;
+    /*margin: 30px;*/
+    border: solid grey 1px;
 }
 
-label{
-    margin-left: 10px;
+.form-control-lg{
+    width: 520px;
+    height: 45px;
 }
 
-.campo{
-    display: block;
-    margin: 1px 10px;
-    height: 30px;
-    width: 480px;
-    font-size: 0.9rem;
+.btn{
+    background-color: rgb(79, 86, 219);
+    color: #fff;
 }
 
-.campo:hover{
-    background-color: lavender;
-}
-
-.button{
-    display: block;
-    color:black;
-    background-color: silver;
-    font-size: 0.9rem;
-    margin: 5px auto;
-    width: 100px;
-    padding: 3px;
-}
-
-.button:hover{
-    background-color:lavender;
+.btn:hover{
+    background-color: #686de0;
 }
