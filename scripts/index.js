@@ -13,8 +13,7 @@ function adicionar_noticia(noticia, onde){
     
     var divHeader = document.createElement("div");
     divHeader.className="card bg-light m-3 shadow-lg rounded";
-    //divHeader.style="background-color: rgb(79, 86, 219);"
-    
+        
     var divTitulo = document.createElement("div"); 
     divTitulo.className="mt-3 ml-3 row";
     
