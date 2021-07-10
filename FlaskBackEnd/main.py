@@ -158,5 +158,5 @@ app.config['JSON_AS_ASCII'] = False
 app.config['JSON_AS_UTF8'] = True
 
 CORS(app, resources={r"/*": {"origins": "*"}})
-#app.run(debug=False, host="192.168.15.60")
-app.run(debug=True)
+app.run(debug=False, host="192.168.15.60")
+# app.run(debug=True)

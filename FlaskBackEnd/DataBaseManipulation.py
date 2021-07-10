@@ -7,7 +7,7 @@ class Main(object):
     def __init__(self):
         self.conn = sqlite3.connect('database.db')
         self.cursor = self.conn.cursor()
-        self.url = "127.0.0.1:5000"
+        self.url = "179.111.62.251:5000"
 
 
 
