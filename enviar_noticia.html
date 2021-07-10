@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Envie uma notícia.</title>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+</head>
+    <body>
+        <div class="container-fluid sticky-top" style="padding: 0;">
+            <nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgb(79, 86, 219);">
+                <a class="navbar-brand" href="#">Notícias BCVM</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Principal <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Categorias
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="politica.html">Política</a>
+                                <a class="dropdown-item" href="saude.html">Saúde</a>
+                                <a class="dropdown-item" href="educacao.html">Educação</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contato.html">Fale Conosco <span class="sr-only">(current)</span></a>
+                        </li>
+                        <a class="navbar-brand" href="#">Envie uma notícia</a>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <div class="text-center m-4">
+            <h2 style="color: white;">Envie uma notícia.</h2>
+        </div>
+        
+        <div class="container"">
+            <div>
+                <div class="mb-3">
+                  <label for="title" class="form-label">Título da notícia</label>
+                  <input type="text" class="form-control" id="title">
+                  <small id="lbl_tituloInvalido" style="color: white;">Você <strong>não pode</strong> enviar uma notícia com título maior do que 50 caracteres.</small>
+                </div>
+                <hr>
+                <div class="mb-3">
+                    <label for="autor" class="form-label">Autor</label>
+                    <input type="text" class="form-control" id="autor">
+                    <small id="lbl_autorInvalido" style="color: white;">Você <strong>não pode</strong> enviar uma notícia com autor maior do que 100 caracteres.</small>
+                </div>
+                <hr>
+                <div class="mb-3">
+                    <label for="descriçao" class="form-label">Descrição</label>
+                    <textarea class="form-control" id="descriçao" rows="10"></textarea>
+                    <small id="lbl_descriçaoInvalida" style="color: white;">Você <strong>não pode</strong> enviar uma descrição de uma notícia maior do que 1000 caracteres.</small>
+                </div>
+                <hr>
+                <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
+                <div class="row" style="margin-left: 20%">
+                    <div class="col-3 mb-3">
+                        <label for="imagem" class="form-label" >Imagem</label>
+                        <form action = "http://localhost:5000/upload" target="dummyframe" method = "POST" enctype = "multipart/form-data">
+                            <input type="file" accept="image/*" name="file" style="padding-left: 30px; padding-bottom: 19%; color: transparent;" class="form-control" id="imagem"/>
+                            <input id="enviar_imagem" type="submit" value="Enviar imagem" style="visibility: hidden;">
+                        </form>
+                    </div>
+                    <div class="col-3 form-group">
+                        <label for="categoria">Categoria</label>
+                        <select class="form-control" style="padding-bottom: 4%; margin-top:3px; color: black;" id="categoria">
+                          <option>Política</option>
+                          <option>Saúde</option>
+                          <option>Educação</option>
+                        </select>
+                      </div>
+                    <div class="col-3 mb-3">
+                        <label for="date" class="form-label">Data de publicação</label>
+                        <input type="date" style="padding-bottom: 11%; padding-top: 11%;" class="form-control" id="date">
+                    </div>
+                </div>
+            </div>
+            <!--
+                // console.log(data);
+                //ID
+                //TITULO
+                //DESCRICAO
+                //IMAGEM
+                //CATEGORIA
+                //AUTOR
+                //DATA
+            -->
+              
+              
+              <div class="row" style="display: flex; justify-content: center;">
+                <button type="submit" id="enviar" style="background-color: rgb(79, 86, 219); color: white; width: 10%;" class="btn mt-5">Enviar</button>
+            </div>
+        </div>
+        
+        <hr>
+        <footer class="mt-5">
+            Página Web desenvolvida por Beatriz Cattaneo e Victor Lucas Mazzotti<br>
+            Tipo de licenciamento: GNU
+        </footer>
+        <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous">
+        </script>
+        
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="./styles/styles.css">
+        <script src="./scripts/enviar_noticia.js"></script>
+
+    </body>
+</html>
