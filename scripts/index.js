@@ -1,5 +1,6 @@
 const webApi = "https://thingproxy.freeboard.io/fetch/http://179.111.62.251:5000/"
 
+
 function noticia (categoria, titulo, autor, image, text){
     this.categoria = categoria
     this.titulo = titulo
