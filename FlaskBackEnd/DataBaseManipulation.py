@@ -1,12 +1,15 @@
 import sqlite3
+import CryptSecurity
+
 
 
 class Main(object):
     def __init__(self):
         self.conn = sqlite3.connect('database.db')
         self.cursor = self.conn.cursor()
-        #self.cursor.execute("DROP TABLE noticia;")
-        #self.conn.commit()
+        self.url = "127.0.0.1:5000"
+
+
 
     def inserir_noticia(self,titulo,descricao,imagem,assunto,autor,data):
         """
@@ -18,18 +21,23 @@ class Main(object):
         data: Data da notícia (MES-DIA-ANO)->(MM-DD-YYYY) 
         """
         
-        self.cursor.execute(f"""
-            INSERT INTO noticia(titulo,descricao,imagem,assunto,autor,data) 
-                VALUES(
-                    '{titulo}',
-                    '{descricao}',
-                    '{imagem}',
-                    '{assunto}',
-                    '{autor}',
-                    '{data}'
-                );
-         """)
-        self.conn.commit()
+        try:
+            self.cursor.execute(f"""
+                INSERT INTO noticia(titulo,descricao,imagem,assunto,autor,data) 
+                    VALUES(
+                        '{titulo}',
+                        '{descricao}',
+                        '{imagem}',
+                        '{assunto}',
+                        '{autor}',
+                        '{data}'
+                    );
+            """)
+            self.conn.commit()
+            return "Ok"
+        except Exception as e:
+            self.conn.rollback()
+            return f"Não foi possível inserir esta notícia devido ao erro: {str(e)}"
 
     def recuperar_informacoes(self, select, where, table):
         """
@@ -58,13 +66,17 @@ class Main(object):
             lista.append(i)
         return lista
         
-    def inserir_usuario(self,nome,email,senha):
+    def inserir_usuario(self,nome,email,senha,data_nascimento):
+        
+        _token = CryptSecurity.Main().generate_hash(email,senha)
         
         self.cursor.execute(f"""
-            INSERT INTO usuario(nome,email,senha) VALUES (
+            INSERT INTO usuario(nome,email,senha,token,data_nascimento) VALUES (
                 '{nome}',
                 '{email}',
-                '{senha}'  
+                '{senha}',  
+                '{_token}',  
+                '{data_nascimento}'  
             );
         """)
         self.conn.commit()
@@ -76,7 +88,8 @@ class Main(object):
                 nome VARCHAR(50) NOT NULL,
                 email VARCHAR(50) UNIQUE NOT NULL,
                 senha VARCHAR(255) NOT NULL,
-                data TEXT
+                token VARCHAR(255) NOT NULL,
+                data_nascimento TEXT
             );
         """)
     def criar_tabela_noticia(self):
@@ -147,17 +160,44 @@ class Main(object):
         except Exception as e:
             self.conn.rollback()
             return f"Não foi possível descurtir a notícia, devido ao erro: {str(e)} "
+    def get_user_token(self, mail, password):
+        self.cursor.execute(f"SELECT token FROM usuario WHERE email = '{mail}' AND senha = '{password}';")
+        return self.cursor.fetchone()[0]
+    def retornar_noticias(self, filtro, assunto):
+        """
+        filtro: Filtro para buscar a notícia. Preencha com str(ZERO) se for nulo
+        assunto: assunto. Preencha com str(ZERO) se for nulo
+        """
+        if( (filtro != '0') and (assunto !='0')): # Filtro deve ser aplicado..
+            data = self.recuperar_informacoes("*",f"titulo like '%{filtro}%' AND assunto = '{assunto}'","noticia")
+            return data 
+        elif(filtro != '0' and (assunto == '0')):
+            data = self.recuperar_informacoes("*",f"titulo like '%{filtro}%'","noticia")
+            return data
+        elif(filtro == '0' and (assunto !='0')):
+            data = self.recuperar_informacoes("*",f"assunto = '{assunto}'","noticia")
+            return data
+        else:
+            data = self.recuperar_informacoes("*","1=1","noticia")
+            return data
+            
 
 #Main().criar_tabela_usuario()
 #Main().inserir_usuario('Beatriz Cattaneo','beatriz.bc@gmail.com','thisisapassword')
 #print(Main().logar("Dora.vlm@gmail.com","thisisnotapassword"))
-#print(Main().recuperar_informacoes("*","1=1","noticia"))
 #Main().criar_tabela_noticia()
 #Main().criar_tabela_relacao_curtidas();
 
+#Main().inserir_noticia("Mulher descobre estar grávida mesmo menstruada.","Uma mulher do estado de São Paulo, estudante do IFSP, descubriu estar grávida, mesmo após ter menstruado duas vezes e feito o teste de gravidez. Especialistas estão chocados.","/static/Noticias/Batman.jpg","saude","Victor Lucas Mazzotti","07-06-2021")
 #Main().inserir_noticia("Mulher descobre estar grávida mesmo menstruada.","Uma mulher do estado de São Paulo, estudante do IFSP, descubriu estar grávida, mesmo após ter menstruado duas vezes e feito o teste de gravidez. Especialistas estão chocados.","/static/Noticias/Batman.jpg","saude","Victor Lucas Mazzotti","07-06-2021")
 
 
 
 #print(Main().curtir_noticia(1,1))
+#print(Main().recuperar_informacoes("*","1=1","usuario"))
+#print(Main().get_user_token("mazzotti.vlm@gmail.com","music4ever"))
+#print(Main().inserir_usuario("Victor Lucas Mazzotti","mazzotti.vlm@gmail.com","music4ever","02-06-2001"))
+
+#print(Main().inserir_noticia("Jovem quase tira nota máxima no Enem","No ano de 2018, o Jovem chamado Roberto Abreu quase conseguiu atingir a nota máxima no Exame Eacional de Ensino Medio",f"{Main().url}/static/Batman.jpg","educaçao","Carlos Drummond de Andrade","07-08-2021"))
+#print(Main().retornar_noticias("mesmo",'0'))
 Main().encerrar_conexao()

@@ -1,8 +1,19 @@
 *{
     font-family: Arial, Helvetica, sans-serif;
 }
+::-webkit-scrollbar {
+    width: 0; /* Remove scrollbar space */
+    background: invisible;  /* Optional: just make scrollbar invisible */
+}
+/* Optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+    background: #FF0000;
+}
 
 body{
+    background-color: #686de0;
+}
+hr{
     background-color: #686de0;
 }
 
