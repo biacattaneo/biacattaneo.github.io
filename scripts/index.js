@@ -1,4 +1,4 @@
-const webApi = "http://179.111.62.251:5000/"
+const webApi = "https://179.111.62.251:5000/"
 
 function noticia (categoria, titulo, autor, image, text){
     this.categoria = categoria
