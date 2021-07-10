@@ -1,5 +1,5 @@
-const webApi = "http://127.0.0.1:5000/"
-const url = "http://127.0.0.1:5500/ProjetoNoticias";
+const webApi = "http://179.111.62.251:5000/"
+const url = "http://179.111.62.251:5500/ProjetoNoticias";
 
 const emailField = document.getElementById("email");
 const passField = document.getElementById("password");
