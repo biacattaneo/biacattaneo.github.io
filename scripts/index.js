@@ -8,6 +8,7 @@ function noticia (categoria, titulo, autor, image, text){
     this.text = text
 }
 
+
 function adicionar_noticia(noticia, onde){
     var tagOnde = document.getElementById(onde);
     
