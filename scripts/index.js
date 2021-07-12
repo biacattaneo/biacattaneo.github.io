@@ -1,4 +1,4 @@
-const webApi = "https://api.allorigins.win/raw?url=http://179.111.62.251:5000/"
+const webApi = "https://api.allorigins.win/raw?url=http://webnoticiasapi.ddns.net:5000/"
 
 
 function noticia (categoria, titulo, autor, image, text){
