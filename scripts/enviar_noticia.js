@@ -60,7 +60,6 @@ input_Descriçao.change(()=>{
 
 const enviarNoticia_req = async () => {
     // def inserir_noticia(self,titulo,descricao,imagem,assunto,autor,data):
-
     const response = await fetch((webApi + "logar/" + emailField.value + "/" + passField.value), {
             method: 'GET',
             headers: {
@@ -77,7 +76,7 @@ const enviarNoticia_req = async () => {
         
         
 function enviar_noticia(){
-
+    
     fileName = new String(input_Imagem[0].value);
     fileName = fileName.replace(/\\/g, '');
     fileName = fileName.replace("C:fakepath", ''); // agora o nome está pronto para ser utilizado.
@@ -92,6 +91,7 @@ function enviar_noticia(){
         return "Impossível continuar. Campos invalidos";
     }
     // se chegar até aqui, é porque está válido.
+    btn_EnviarImagem.click();
     enviarNoticia_req();
     
 }
