@@ -23,7 +23,33 @@ def upload():
     if request.method == 'POST':
         f = request.files['file']
         f.save("static/Noticias/"+f.filename)
-        return "File saved successfully"
+        return ""
+    else:
+        return ""
+
+    # //TITULO
+    # //DESCRICAO
+    # //IMAGEM
+    # //CATEGORIA
+    # //AUTOR
+    # //DATA
+@app.route('/adicionar_noticia/<titulo>/<descricao>/<imagem>/<categoria>/<autor>/<data>')
+
+def adicionar_noticia(titulo,descricao,imagem,categoria,autor,data):
+    imagem = "static/Noticias/" + imagem
+    try:
+        DataBaseManipulation.Main().inserir_noticia(titulo,descricao,imagem,categoria,autor,data)
+        _dict = {"Status": "Sucesso ao inserir notícia!"
+        }
+        response = make_response(jsonify(_dict), 200)
+        return response
+    except Exception as e:
+        _dict = {"Status": f"Não foi possível inserir essa notícia devido ao erro: {e}!"
+        }
+        response = make_response(jsonify(_dict), 200)
+        return response
+
+
 
 
 @app.route('/cookietest')
@@ -96,6 +122,9 @@ def noticia(filtro,assunto):
             data.append(i)
         response = make_response(jsonify(data))
         response.headers["Content-Type"] = "application/json"
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        response.headers.add("Access-Control-Allow-Credentials","true")
+        response.headers.add("Access-Control-Allow-Headers","Content-Type, Authorization, Accept-Language, X-Requested-With")
         return response 
 
 @app.route('/logar/<email>/<senha>')
@@ -158,5 +187,5 @@ app.config['JSON_AS_ASCII'] = False
 app.config['JSON_AS_UTF8'] = True
 
 CORS(app, resources={r"/*": {"origins": "*"}})
-app.run(debug=False, host="192.168.15.60")
+app.run(debug=True, host="192.168.15.60")
 # app.run(debug=True)

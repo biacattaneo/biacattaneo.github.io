@@ -60,16 +60,15 @@ input_Descriçao.change(()=>{
 
 const enviarNoticia_req = async () => {
     // def inserir_noticia(self,titulo,descricao,imagem,assunto,autor,data):
-    const response = await fetch((webApi + "logar/" + emailField.value + "/" + passField.value), {
+    const response = await fetch((webApi + "adicionar_noticia/" + input_Title.val() + "/" + input_Descriçao.val() + "/" + fileName + "/" + input_Categoria.val() + "/" + input_Autor.val() + "/" + input_Data.val()), {
             method: 'GET',
             headers: {
                     'Content-Type': 'application/json'
                 }
             });
             const data = await response.json(); //extract JSON from the http response
-            btn_EnviarImagem.click(); // envia a imagem para o servidor..
-
-            
+            console.log(data);
+            // btn_EnviarImagem.click(); // envia a imagem para o servidor..  
         }
         
         
@@ -91,7 +90,7 @@ function enviar_noticia(){
         return "Impossível continuar. Campos invalidos";
     }
     // se chegar até aqui, é porque está válido.
-    btn_EnviarImagem.click();
+    // btn_EnviarImagem.click();
     enviarNoticia_req();
     
 }

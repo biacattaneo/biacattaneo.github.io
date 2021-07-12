@@ -1,4 +1,4 @@
-const webApi = "https://api.allorigins.win/raw?url=http://webnoticiasapi.ddns.net:5000/"
+const webApi = "http://webnoticiasapi.ddns.net:5000/"
 
 
 function noticia (categoria, titulo, autor, image, text){
@@ -68,13 +68,12 @@ const chamar_noticias = async () => {
     //CATEGORIA
     //AUTOR
     //DATA
-    
+    console.log(data);
     data.map((i)=>{
-      _noticia = new noticia(i[4],i[1],i[5],i[3],i[2]);
+      imagem = i[3];
+      imagem = webApi + i[3];
+      _noticia = new noticia(i[4],i[1],i[5],imagem,i[2]);
       
-      adicionar_noticia(_noticia,"noticias");
-      adicionar_noticia(_noticia,"noticias");
-      adicionar_noticia(_noticia,"noticias");
       adicionar_noticia(_noticia,"noticias");
     });
 }
