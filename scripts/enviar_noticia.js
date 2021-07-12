@@ -1,3 +1,6 @@
+const webApi = "https://api.allorigins.win/raw?url=http://webnoticiasapi.ddns.net:5000/"
+
+
 const btn_Enviar = $('#enviar');
 const btn_EnviarImagem = $('#enviar_imagem');
 const input_Title = $('#title');
