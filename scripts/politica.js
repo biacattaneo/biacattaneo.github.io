@@ -1,3 +1,21 @@
+const webApi = "http://webnoticiasapi.ddns.net:5000/"
+var searchBtn = document.getElementById("search-btn");
+var noticiasDiv = document.getElementById("noticias");
+var noticiasInput = document.getElementById("search-txt")
+
+
+searchBtn.addEventListener("click", ()=>{
+  while(document.getElementById("noticias").firstChild){
+    noticiasDiv.removeChild(noticiasDiv.firstChild);
+  }
+  if(noticiasInput.value == ""){
+    chamar_noticias("0","Política");
+  }else{
+    chamar_noticias(noticiasInput.value,"Política")
+  }
+});
+
+
 function noticia (categoria, titulo, autor, image, text){
     this.categoria = categoria
     this.titulo = titulo
@@ -6,13 +24,13 @@ function noticia (categoria, titulo, autor, image, text){
     this.text = text
 }
 
+
 function adicionar_noticia(noticia, onde){
     var tagOnde = document.getElementById(onde);
     
     var divHeader = document.createElement("div");
     divHeader.className="card bg-light m-3 shadow-lg rounded";
-    //divHeader.style="background-color: rgb(79, 86, 219);"
-    
+        
     var divTitulo = document.createElement("div"); 
     divTitulo.className="mt-3 ml-3 row";
     
@@ -31,7 +49,7 @@ function adicionar_noticia(noticia, onde){
     var imagemDivImagemConteudo = document.createElement("img");
     imagemDivImagemConteudo.className="img-fluid ml-2 mt-2 mb-2";
     imagemDivImagemConteudo.style="width: 386px; height: 269px";
-    imagemDivImagemConteudo.src=noticia.image;
+    imagemDivImagemConteudo.src=noticia.image; // NOTICIA.IMAGE
     
     divImagemConteudo.appendChild(imagemDivImagemConteudo);
 
@@ -46,21 +64,33 @@ function adicionar_noticia(noticia, onde){
     tagOnde.appendChild(divHeader);
 }
 
+const chamar_noticias = async (filtro,categoria) => {
+    // /logar/<email>/<senha> FUNÇÃO LOGAR
+    const response = await fetch((webApi + "noticia/" + filtro + "/" + categoria), {
+      method: 'GET',
+
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    
+    
+    const data = await response.json(); //extract JSON from the http response
+    console.log(data);
+    data.map((i)=>{
+      imagem = i[3];
+      imagem = webApi + i[3]; // adicionando o diretório corretamente ao qual se encontra a imagem
+      _noticia = new noticia(i[4],i[1],i[5],imagem,i[2]);
+      
+      adicionar_noticia(_noticia,"noticias");
+    });
+}
+chamar_noticias("0","Política")
 
 
-
-var newNoticia = new noticia("Política", "Guedes se pronuncia", "EVARISTO SÁ", "https://i.em.com.br/VLNZfRHfHauGC3vUr1PyTL7wLRM=/820x0/smart/imgsapp.em.com.br/app/noticia_127983242361/2021/05/12/1265609/20210511211802400318e.jpg", "Guedes diz que suspendeu concurso para evitar militância de servidores");
 
 // PARA ADICIONAR NOTICIA NOVA -> var newNoticia2 = new noticia("saude", "Estudiosos descobriram que a laranja ajuda na queda de cabelo", "jose bezerra", "https://revolucao.etc.br/wp-content/uploads/2019/12/Sa%C3%BAde.png", "Laranja contem vitamina c que auxilia no fortalecimento do cabelo, fazendo com que diminua as quedas. :)");
 // adicionar_noticia(newNoticia2,"noticias");
-
-adicionar_noticia(newNoticia,"noticias");
-adicionar_noticia(newNoticia,"noticias");
-adicionar_noticia(newNoticia,"noticias");
-adicionar_noticia(newNoticia,"noticias");
-adicionar_noticia(newNoticia,"noticias");
-adicionar_noticia(newNoticia,"noticias");
-
 //console.log(newNoticia.categoria, newNoticia.titulo, newNoticia.autor, newNoticia.image, newNoticia.text);
 
 

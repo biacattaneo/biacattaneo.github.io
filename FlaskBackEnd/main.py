@@ -33,13 +33,23 @@ def upload():
     # //CATEGORIA
     # //AUTOR
     # //DATA
-@app.route('/adicionar_noticia/<titulo>/<descricao>/<imagem>/<categoria>/<autor>/<data>')
+@app.route('/adicionar_noticia/<titulo>/<descricao>/<imagem>/<categoria>/<autor>/<data>/<token>')
 
-def adicionar_noticia(titulo,descricao,imagem,categoria,autor,data):
+def adicionar_noticia(titulo,descricao,imagem,categoria,autor,data,token):
+    _idUsuario = DataBaseManipulation.Main().buscar_usuario_por_token(token)
+    if(DataBaseManipulation.Main().IsUsuarioAdmin(_idUsuario)):
+        pass
+    else:
+        response = make_response(jsonify( {"Message": "Você não é um administrador para poder adicionar notícias."} ), 200)
+        return response
+
+
+    
     imagem = "static/Noticias/" + imagem
     try:
         DataBaseManipulation.Main().inserir_noticia(titulo,descricao,imagem,categoria,autor,data)
-        _dict = {"Status": "Sucesso ao inserir notícia!"
+        _dict = {"Status": "Sucesso ao inserir notícia!",
+                 "token": str(token)
         }
         response = make_response(jsonify(_dict), 200)
         return response
@@ -90,7 +100,6 @@ def signup(name,mail, password):
 
 @app.route('/noticia/<filtro>/<assunto>')
 def noticia(filtro,assunto):
-    print(type(filtro))
     if((filtro != '0') and (assunto !='0')): # Filtro deve ser aplicado..
         data = []
         for i in DataBaseManipulation.Main().retornar_noticias(filtro,assunto):
@@ -110,7 +119,6 @@ def noticia(filtro,assunto):
     elif(filtro == '0' and (assunto !='0')):
         data = []
         for i in DataBaseManipulation.Main().retornar_noticias('0',assunto):
-            print(i)
             data.append(i)
         response = make_response(jsonify(data))
         response.headers["Content-Type"] = "application/json"
@@ -118,7 +126,6 @@ def noticia(filtro,assunto):
     else:
         data = []
         for i in DataBaseManipulation.Main().retornar_noticias('0','0'):
-            print(i)
             data.append(i)
         response = make_response(jsonify(data))
         response.headers["Content-Type"] = "application/json"
@@ -162,11 +169,6 @@ def logar(email,senha):
     #response.headers["Content-Type"] = "application/json"
     return response
 
-
-# def inserir_noticia(self,titulo,descricao,imagem,assunto,autor,data):
-@app.route('/inserirNoticia/<titulo>/<descricao>/<imagem>/<assunto>/<autor>/<data>')
-def inserir_noticia(inserirNoticias,titulo,descricao,imagem,assunto,autor,data):
-    DataBaseManipulation.Main().inserir_noticia(titulo,descricao,imagem,assunto,autor,data);
 
 
 @app.route('/')

@@ -1,4 +1,4 @@
-const webApi = "https://api.allorigins.win/raw?url=http://webnoticiasapi.ddns.net:5000/"
+const webApi = "http://webnoticiasapi.ddns.net:5000/"
 
 
 const btn_Enviar = $('#enviar');
@@ -60,7 +60,8 @@ input_Descriçao.change(()=>{
 
 const enviarNoticia_req = async () => {
     // def inserir_noticia(self,titulo,descricao,imagem,assunto,autor,data):
-    const response = await fetch((webApi + "adicionar_noticia/" + input_Title.val() + "/" + input_Descriçao.val() + "/" + fileName + "/" + input_Categoria.val() + "/" + input_Autor.val() + "/" + input_Data.val()), {
+    const AccessToken = sessionStorage.getItem("token_de_acesso");
+    const response = await fetch((webApi + "adicionar_noticia/" + input_Title.val() + "/" + input_Descriçao.val() + "/" + fileName + "/" + input_Categoria.val() + "/" + input_Autor.val() + "/" + input_Data.val() + "/" + AccessToken), {
             method: 'GET',
             headers: {
                     'Content-Type': 'application/json'
@@ -68,7 +69,19 @@ const enviarNoticia_req = async () => {
             });
             const data = await response.json(); //extract JSON from the http response
             console.log(data);
-            // btn_EnviarImagem.click(); // envia a imagem para o servidor..  
+            if (data["message"].includes('Não é possível encontar essa página.')){
+                swal("Acesso negado!", "Você não tem privilégio para adicionar notícias!", "error")
+                
+            }else{
+                swal("Notícia cadastrada!", "Notícia cadastrada com sucesso.", "success")
+                .then((value) => {
+                    window.location.href="/ProjetoNoticias/index.html";
+                    btn_EnviarImagem.click(); // envia a imagem para o servidor..  
+                });
+            }
+            // console.log(data);
+            //window.location.href="/ProjetoNoticias/index.html";
+
         }
         
         

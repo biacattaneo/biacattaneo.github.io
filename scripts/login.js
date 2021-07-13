@@ -1,5 +1,5 @@
-const webApi = "http://179.111.62.251:5000/"
-const url = "http://179.111.62.251:5500/ProjetoNoticias";
+const webApi = "http://webnoticiasapi.ddns.net:5000/"
+const url = "http://webnoticiasapi.ddns.net:5500/ProjetoNoticias";
 
 const emailField = document.getElementById("email");
 const passField = document.getElementById("password");
@@ -23,6 +23,9 @@ const logar = async () => {
         alert("Não foi possível logar.")
     }else{
         sessionStorage.setItem("token_de_acesso", data["token_de_acesso"]);
-        window.location.href=url + "/";
-    }
+        swal("Bem vindo de volta!", "Agora você está pronto para curtir as notícias.", "success")
+        .then((value) => {
+            window.location.href="/ProjetoNoticias/index.html";
+        });
+      }
 }

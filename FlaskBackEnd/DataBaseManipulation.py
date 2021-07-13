@@ -9,7 +9,16 @@ class Main(object):
         self.cursor = self.conn.cursor()
         self.url = "http://webnoticiasapi.ddns.net:5000/"
 
+    def buscar_usuario_por_token(self, token):
+        self.cursor.execute(f"SELECT id FROM usuario WHERE token = '{token}';")
+        return self.cursor.fetchone()[0]
 
+    def IsUsuarioAdmin(self,id_usuario):
+        usuarioAdm = self.recuperar_informacoes("nome",f"id = '{id_usuario}' AND adm = '1'", "usuario")
+        if(usuarioAdm):
+            return True
+        else:
+            return False
 
     def inserir_noticia(self,titulo,descricao,imagem,assunto,autor,data):
         """
@@ -66,17 +75,24 @@ class Main(object):
             lista.append(i)
         return lista
         
-    def inserir_usuario(self,nome,email,senha,data_nascimento):
-        
+    def inserir_usuario(self,nome,email,senha,data_nascimento,adm):
+        """
+        nome: nome,
+        email: email,
+        senha: senha,
+        data_nascimento: data nascimento,
+        adm: 1 = Administrador/ 0 = Usuário comum.
+        """
         _token = CryptSecurity.Main().generate_hash(email,senha)
         
         self.cursor.execute(f"""
-            INSERT INTO usuario(nome,email,senha,token,data_nascimento) VALUES (
+            INSERT INTO usuario(nome,email,senha,token,data_nascimento,adm) VALUES (
                 '{nome}',
                 '{email}',
                 '{senha}',  
                 '{_token}',  
-                '{data_nascimento}'  
+                '{data_nascimento}',
+                '{adm}'
             );
         """)
         self.conn.commit()
@@ -89,7 +105,8 @@ class Main(object):
                 email VARCHAR(50) UNIQUE NOT NULL,
                 senha VARCHAR(255) NOT NULL,
                 token VARCHAR(255) NOT NULL,
-                data_nascimento TEXT
+                data_nascimento TEXT,
+                adm INT DEFAULT 0 
             );
         """)
     def criar_tabela_noticia(self):
@@ -199,5 +216,8 @@ class Main(object):
 #print(Main().inserir_usuario("Victor Lucas Mazzotti","mazzotti.vlm@gmail.com","music4ever","02-06-2001"))
 
 #print(Main().inserir_noticia("Jovem quase tira nota máxima no Enem","No ano de 2018, o Jovem chamado Roberto Abreu quase conseguiu atingir a nota máxima no Exame Eacional de Ensino Medio",f"{Main().url}/static/Batman.jpg","educaçao","Carlos Drummond de Andrade","07-08-2021"))
-print(Main().retornar_noticias('0','0'))
+#print(Main().retornar_noticias('0','0'))
+#Main().criar_tabela_usuario()
+#Main().inserir_usuario("Kaio Lucas Mazzotti","kaio.vlm@gmail.com","music4ever","06-02-2001","0")
+
 Main().encerrar_conexao()
