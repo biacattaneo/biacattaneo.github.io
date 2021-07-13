@@ -68,15 +68,14 @@ const enviarNoticia_req = async () => {
                 }
             });
             const data = await response.json(); //extract JSON from the http response
-            console.log(data);
-            if (data["message"].includes('Não é possível encontar essa página.')){
+            if (data["Message"].includes('Você não é um administrador para poder adicionar notícias.')){
                 swal("Acesso negado!", "Você não tem privilégio para adicionar notícias!", "error")
-                
-            }else{
-                swal("Notícia cadastrada!", "Notícia cadastrada com sucesso.", "success")
-                .then((value) => {
+            }
+            else{  
+                swal("Sucesso!", "Sua notícia foi inserida com sucesso!", "success")
+                .then((value)=>{
+                    btn_EnviarImagem.click();
                     window.location.href="/ProjetoNoticias/index.html";
-                    btn_EnviarImagem.click(); // envia a imagem para o servidor..  
                 });
             }
             // console.log(data);
@@ -105,6 +104,7 @@ function enviar_noticia(){
     // se chegar até aqui, é porque está válido.
     // btn_EnviarImagem.click();
     enviarNoticia_req();
+     // enviar imagem pelo metodo post
     
 }
 

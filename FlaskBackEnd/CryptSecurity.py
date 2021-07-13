@@ -7,6 +7,9 @@ class Main(object):
     
     def generate_hash(self,mail,password):
         _temp = bcrypt.hashpw(f"{mail}{password}".encode(), bcrypt.gensalt(4))
+        if("/" in str(_temp)):
+            self.generate_hash()
+
         return _temp.decode()
     
     def verify_similarity(self,hash1,hashToCompare):

@@ -4,17 +4,6 @@ var noticiasDiv = document.getElementById("noticias");
 var noticiasInput = document.getElementById("search-txt")
 
 
-searchBtn.addEventListener("click", ()=>{
-  while(document.getElementById("noticias").firstChild){
-    noticiasDiv.removeChild(noticiasDiv.firstChild);
-  }
-  if(noticiasInput.value == ""){
-    chamar_noticias("0","Política");
-  }else{
-    chamar_noticias(noticiasInput.value,"Política")
-  }
-});
-
 
 function noticia (id, categoria, titulo, autor, image, text, data){
     this.id = id;
@@ -107,9 +96,8 @@ const curtir_noticia = async (token,id_noticia) => {
 
 
 
-const chamar_noticias = async (filtro,categoria) => {
-    // /logar/<email>/<senha> FUNÇÃO LOGAR
-    const response = await fetch((webApi + "noticia/" + filtro + "/" + categoria), {
+const chamar_noticias = async (token) => {
+    const response = await fetch((webApi + "noticias_favoritas/" + token ), {
       method: 'GET',
 
       headers: {
@@ -119,16 +107,16 @@ const chamar_noticias = async (filtro,categoria) => {
     
     
     const data = await response.json(); //extract JSON from the http response
-    var noticias = [];
+    console.log(data);
     data.map((i)=>{
       imagem = i[3];
       imagem = webApi + i[3]; // adicionando o diretório corretamente ao qual se encontra a imagem
       _noticia = new noticia(i[0],i[4],i[1],i[5],imagem,i[2], i[6]);
-      noticias.push(_noticia);
+      
       adicionar_noticia(_noticia,"noticias");
     });
 }
-chamar_noticias("0","Política")
+chamar_noticias(sessionStorage.getItem("token_de_acesso"));
 
 
 

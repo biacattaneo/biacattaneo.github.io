@@ -1,3 +1,7 @@
+.likeButton:hover{
+    filter: invert(7%) sepia(100%) saturate(7000%) hue-rotate(247deg) brightness(100%) contrast(50%);
+}
+
 *{
     font-family: Arial, Helvetica, sans-serif;
 }

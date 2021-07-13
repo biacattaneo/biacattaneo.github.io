@@ -48,18 +48,32 @@ def adicionar_noticia(titulo,descricao,imagem,categoria,autor,data,token):
     imagem = "static/Noticias/" + imagem
     try:
         DataBaseManipulation.Main().inserir_noticia(titulo,descricao,imagem,categoria,autor,data)
-        _dict = {"Status": "Sucesso ao inserir notícia!",
-                 "token": str(token)
-        }
+        _dict = {"Message": "Sucesso ao inserir notícia!"}
         response = make_response(jsonify(_dict), 200)
         return response
     except Exception as e:
-        _dict = {"Status": f"Não foi possível inserir essa notícia devido ao erro: {e}!"
+        _dict = {"Message": f"Não foi possível inserir essa notícia devido ao erro: {e}!"
         }
         response = make_response(jsonify(_dict), 200)
         return response
 
 
+@app.route ('/curtir_noticia/<token>/<id_noticia>')
+def curtir_noticia(token,id_noticia):
+    id_usuario = DataBaseManipulation.Main().buscar_usuario_por_token(token)
+    result = DataBaseManipulation.Main().curtir_noticia(id_usuario,id_noticia)
+    if(result == "Este usuário já curtiu essa notícia."):
+        _answer = {"Message": f"Você já curtiu essa notícia!"}
+        response = make_response(jsonify(_answer), 200)
+        return response
+    elif(result == "Ok"):
+        _answer = {"Message": f"Curtida inserida com sucesso!"}
+        response = make_response(jsonify(_answer), 200)
+        return response
+    else:
+        _answer = {"Message": f"Um erro inesperado ocorreu.!"}
+        response = make_response(jsonify(_answer), 200)
+        return response
 
 
 @app.route('/cookietest')
@@ -97,6 +111,17 @@ def signup(name,mail, password):
     
     response.headers["Content-Type"] = "application/json"
     return response
+
+@app.route('/noticias_favoritas/<token>')
+def noticias_favoritas(token):
+    id_usuario= DataBaseManipulation.Main().buscar_usuario_por_token(token)
+    data = []
+    # SELECT titulo FROM noticia INNER JOIN relacao_curtidas ON relacao_curtidas.id_noticia = noticia.id WHERE relacao_curtidas.id_usuario = '3'"
+    for i in DataBaseManipulation.Main().NoWhere_recuperar_informacoes("*",f"INNER JOIN relacao_curtidas ON relacao_curtidas.id_noticia = noticia.id WHERE relacao_curtidas.id_usuario = '{id_usuario}'","noticia"):
+        data.append(i)
+    response = make_response(jsonify(data))
+    response.headers["Content-Type"] = "application/json"
+    return response 
 
 @app.route('/noticia/<filtro>/<assunto>')
 def noticia(filtro,assunto):

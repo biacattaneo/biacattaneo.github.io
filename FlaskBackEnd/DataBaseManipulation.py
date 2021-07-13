@@ -20,6 +20,21 @@ class Main(object):
         else:
             return False
 
+    def retornar_noticias_favoritas(self, token):
+        trigger = ["/","<",">",";"] # Caracteres especiais que serão barrados da requisição.
+        id_usuario = self.buscar_usuario_por_token(token)
+        #Verificando se existe algum caracter perigoso
+        # Potencialmente utilizado para mysql injection
+        # ou alguma eventual brecha de segurança.      
+        lista = []
+        self.cursor.execute(f"""
+            SELECT * FROM usuario,relacao_curtidas WHERE relacao_curtidas.id_usuario = '{id_usuario}' AND relacao_curtidas.id_usuario = usuario.id;
+        """)
+        
+        for i in self.cursor.fetchall():
+            lista.append(i)
+        return lista
+
     def inserir_noticia(self,titulo,descricao,imagem,assunto,autor,data):
         """
         titulo: Título da noticia
@@ -48,6 +63,34 @@ class Main(object):
             self.conn.rollback()
             return f"Não foi possível inserir esta notícia devido ao erro: {str(e)}"
 
+    def NoWhere_recuperar_informacoes(self, select, where, table):
+        """
+        Para fins de segurança contra MYSQL INJECTION, essa função não aceita os seguintes caracteres: / < > ;
+
+
+        select: Código em SQL sobre o que deve ser retornado
+        where: Condição em SQL que deve ser aplicada
+        table: Tabela a qual os parâmetros anteriores devem ser aplicados
+        """
+        trigger = ["/","<",">",";"] # Caracteres especiais que serão barrados da requisição.
+        
+        #Verificando se existe algum caracter perigoso
+        # Potencialmente utilizado para mysql injection
+        # ou alguma eventual brecha de segurança.
+        for i in trigger: 
+            if((i in select) or (i in where) or (i in table)):
+                return ["Segurança violada. Abortando.."]
+                
+        lista = []
+        print(F"SELECT {select} FROM {table} WHERE {where};")
+        self.cursor.execute(f"""
+            SELECT {select} FROM {table} {where};
+        """)
+        
+        for i in self.cursor.fetchall():
+            lista.append(i)
+        return lista
+    
     def recuperar_informacoes(self, select, where, table):
         """
         Para fins de segurança contra MYSQL INJECTION, essa função não aceita os seguintes caracteres: / < > ;
@@ -67,6 +110,7 @@ class Main(object):
                 return ["Segurança violada. Abortando.."]
                 
         lista = []
+        print(F"SELECT {select} FROM {table} WHERE {where};")
         self.cursor.execute(f"""
             SELECT {select} FROM {table} WHERE {where};
         """)
@@ -134,7 +178,8 @@ class Main(object):
         Não esqueça de chamar essa função uma vez que encerrar toda a comunicação com o banco de dados.
         """
         self.conn.close()
-    
+
+
     def logar(self, email, senha):
         usuarioExiste = self.recuperar_informacoes("nome",f"email = '{email}' AND senha = '{senha}'", "usuario")
         if usuarioExiste:
@@ -164,7 +209,7 @@ class Main(object):
         except Exception as e:
             self.conn.rollback()
             return f"Não foi possível realizar essa operação, devido ao erro: {str(e)} " 
-    
+
     def descurtir_noticia(self, id_usuario, id_noticia):
         # BRECHA DE SEGURANÇA. POSSIBILIDADE DE UM USUARIO
         #  PODER CURTIR PELO OUTRO
@@ -211,7 +256,7 @@ class Main(object):
 
 
 #print(Main().curtir_noticia(1,1))
-#print(Main().recuperar_informacoes("*","1=1","usuario"))
+print(Main().recuperar_informacoes("*","1=1","usuario"))
 #print(Main().get_user_token("mazzotti.vlm@gmail.com","music4ever"))
 #print(Main().inserir_usuario("Victor Lucas Mazzotti","mazzotti.vlm@gmail.com","music4ever","02-06-2001"))
 
