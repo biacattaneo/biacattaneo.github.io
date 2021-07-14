@@ -25,7 +25,7 @@ const logar = async () => {
         sessionStorage.setItem("token_de_acesso", data["token_de_acesso"]);
         swal("Bem vindo de volta!", "Agora você está pronto para curtir as notícias.", "success")
         .then((value) => {
-            window.location.href="/ProjetoNoticias/index.html";
+            window.location.href="/index.html";
         });
       }
 }
