@@ -5,7 +5,7 @@ const interval = setInterval(function() {
         swal("Oops!", "Você não está logado, ou talvez sua sessão tenha expirado !", "error")
         .then((value) => {
             canContinueAsking=true;
-            window.location.href="/ProjetoNoticias/login.html";
+            window.location.href="/login.html";
         });
         
     }
