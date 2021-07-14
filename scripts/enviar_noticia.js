@@ -75,7 +75,7 @@ const enviarNoticia_req = async () => {
                 swal("Sucesso!", "Sua notícia foi inserida com sucesso!", "success")
                 .then((value)=>{
                     btn_EnviarImagem.click();
-                    window.location.href="/ProjetoNoticias/index.html";
+                    window.location.href="/index.html";
                 });
             }
             // console.log(data);
