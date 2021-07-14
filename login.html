@@ -11,31 +11,39 @@
     <body>
         <div class="container-fluid sticky-top" style="padding: 0;">
             <nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgb(79, 86, 219);">
-                <a class="navbar-brand" href="#">Notícias BCVM</a>
+                <a class="navbar-brand" href="index.html">Notícias BCVM!</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav">
-                        <li class="nav-item">
+                        <li class="nav-item active">
                             <a class="nav-link" href="index.html">Principal <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Categorias
+                            Categorias
+                            </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="politica.html">Política</a>
+                            <a class="dropdown-item" href="saude.html">Saúde</a>
+                            <a class="dropdown-item" href="educacao.html">Educação</a>
+                        </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Mais
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="politica.html">Política</a>
-                                <a class="dropdown-item" href="saude.html">Saúde</a>
-                                <a class="dropdown-item" href="educacao.html">Educação</a>
-                                <a class="dropdown-item" href="enviar_noticia.html">Adicionar Notícia</a>
+                            <a class="dropdown-item" href="contato.html">Fale conosco</a>
+                            <a class="dropdown-item" href="noticias_favoritas.html">Notícias favoritas</a>
+                            <a class="dropdown-item" href="enviar_noticia.html">Adicionar Notícia</a>
                             </div>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="contato.html">Fale Conosco <span class="sr-only">(current)</span></a>
                         </li>
                     </ul>
                 </div>
+            <input class="mr-2" id="search-txt" style="border-radius: 6px; outline: none" type="text" placeholder="Buscar no BCVM" aria-label="Search">
+            <button id="search-btn" class="btn btn-primary">Filtrar</button>
             </nav>
         </div>
         <div class="text-center m-4">
