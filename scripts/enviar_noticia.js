@@ -72,9 +72,9 @@ const enviarNoticia_req = async () => {
                 swal("Acesso negado!", "Você não tem privilégio para adicionar notícias!", "error")
             }
             else{  
+                btn_EnviarImagem.click();
                 swal("Sucesso!", "Sua notícia foi inserida com sucesso!", "success")
                 .then((value)=>{
-                    btn_EnviarImagem.click();
                     window.location.href="/index.html";
                 });
             }
