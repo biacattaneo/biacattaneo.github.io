@@ -1,4 +1,4 @@
-const webApi = "http://webnoticiasapi.ddns.net:5000/"
+const webApi = "https://akiraflash.herokuapp.com/"
 var searchBtn = document.getElementById("search-btn");
 var noticiasDiv = document.getElementById("noticias");
 var noticiasInput = document.getElementById("search-txt")

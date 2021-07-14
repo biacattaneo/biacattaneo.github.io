@@ -1,5 +1,5 @@
-const webApi = "http://webnoticiasapi.ddns.net:5000/"
-const url = "http://webnoticiasapi.ddns.net:5500/ProjetoNoticias";
+const webApi = "https://akiraflash.herokuapp.com/"
+const url = "https://akiraflash.herokuapp.com/ProjetoNoticias";
 
 const emailField = document.getElementById("email");
 const passField = document.getElementById("password");

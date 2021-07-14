@@ -1,4 +1,4 @@
-const webApi = "http://webnoticiasapi.ddns.net:5000/"
+const webApi = "https://akiraflash.herokuapp.com/"
 
 
 const btn_Enviar = $('#enviar');
