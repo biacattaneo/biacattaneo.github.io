@@ -9,4 +9,4 @@ const interval = setInterval(function() {
         });
         
     }
-  }, 5000);
+}, 5000);
